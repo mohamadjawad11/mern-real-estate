@@ -1,0 +1,132 @@
+/* REMOVE DEFAULT BODY MARGIN */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* HEADER BASE */
+.header {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* CONTAINER */
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* LOGO */
+.logo h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: flex;
+  gap: 0.3rem;
+  margin: 0;
+  
+}
+
+.logo-part1 {
+  color: #0077ff;
+  
+  
+}
+
+.logo-part2 {
+  color: #2d3436;
+}
+
+/* SEARCH FORM */
+.search-form {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 2rem;
+  display: flex;
+  align-items: center;
+  background-color: #f1f3f5;
+  border-radius: 50px;
+  overflow: hidden;
+  border: 1px solid #dcdfe3;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.search-button {
+  background-color: #0077ff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  margin: 4px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background-color: #005ec4;
+}
+
+
+/* NAVIGATION MENU */
+.nav-list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: #2d3436;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 4px 0;
+}
+
+.nav-list a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #0077ff;
+  transition: width 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #0077ff;
+}
+
+.nav-list a:hover::after {
+  width: 100%;
+}
