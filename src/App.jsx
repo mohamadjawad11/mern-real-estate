@@ -1,18 +1,20 @@
-import React from "react";
+import { BrowserRouter , Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import About from './pages/About';
+import Profile from './pages/Profile';
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-10 rounded-xl shadow-xl text-center">
-        <h1 className="text-3xl font-bold text-blue-600 mb-4">
-          Tailwind CSS is Working!
-        </h1>
-        <p className="text-gray-700">
-          If you see this styled box, Tailwind is set up correctly. 🎉
-        </p>
-      </div>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/about" element={<SignIn/>} />
+        <Route path="/contact" element={<SignUp/>} />
+        <Route path="/" element={<About/>} />
+        <Route path="/" element={<Profile/>} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
-
-export default App;
