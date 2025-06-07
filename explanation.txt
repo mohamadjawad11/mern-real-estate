@@ -1,0 +1,5 @@
+feature1:SignUP{
+   first I should create a route(auth.route.js)
+   then I should create a controller(auth.controller.js)
+   
+}
