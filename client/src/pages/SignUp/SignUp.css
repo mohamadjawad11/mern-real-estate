@@ -1,0 +1,137 @@
+.signup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: #f0f0f0;
+}
+
+.signup-card {
+  display: flex;
+  width: 900px;
+  height: 600px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.signup-left {
+  flex: 1;
+}
+
+.signup-image-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.signup-right {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.signup-right h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #0b254c;
+}
+
+.signup-form .input-group {
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+ 
+}
+
+.input-group .icon {
+  margin-right: 10px;
+  color: #555;
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.signup-button {
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.signup-button:hover {
+  background-color: #004ccc;
+  transition: 0.4s;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.divider span {
+  background: white;
+  padding: 0 10px;
+  color: #999;
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(247, 1, 1);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.google-button:hover {
+  background: #cc0000;
+  transition: 0.4s;
+}
+.google-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  color: #666;
+}
+
+.login-link a {
+  color: #2e5bff;
+  text-decoration: none;
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+  transition: 0.3s;
+  color: #062e73;
+}
