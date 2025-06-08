@@ -5,10 +5,20 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import photo1 from "../../assets/images/photo1.avif";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const[error, setError] = useState(null);
   const[formData, setFormData] = useState({})
+  const [Loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
+
+  
+
    
 
   const handleChange = (e) => {
@@ -18,23 +28,45 @@ export default function SignUp() {
     });
   };
 const handleSubmit = async (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
+  setSuccess(null);
 
   if (formData.password !== formData.repeatpassword) {
-    alert("Passwords do not match");
+    setError("Passwords do not match");
+    setLoading(false);
     return;
   }
 
-  const res = await fetch('/api/auth/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  });
+  try {
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
-  const data = await res.json();
-  console.log(data);
+    const data = await res.json();
+
+    if (data.success === false) {
+      setError(data.message);
+    } else {
+      setSuccess("User created successfully!");
+
+      // Navigate after 2 seconds
+      setTimeout(() => {
+        navigate("/signin");
+      }, 2000);
+    }
+
+  // eslint-disable-next-line no-unused-vars
+  } catch (err) {
+    setError("An unexpected error occurred.");
+  }
+
+  setLoading(false);
 };
 
   console.log("Sending form data:", formData);
@@ -68,8 +100,8 @@ const handleSubmit = async (e) => {
               <FaLock className="icon" />
               <input type="password" placeholder="Repeat Password" id="repeatpassword" onChange={handleChange} />
             </div>
-            <button className="signup-button" type="submit">
-              Sign Up
+            <button disabled={Loading} className="signup-button" type="submit">
+              {Loading ? "Loading..." : "Sign Up"}
             </button>
           </form>
           <div className="divider">
@@ -81,8 +113,12 @@ const handleSubmit = async (e) => {
           <p className="login-link">
             Already have an account?<Link to={"/signin"}><a>Log In</a></Link>
           </p>
+          {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
         </div>
       </div>
+
+
     </div>
   );
 }
