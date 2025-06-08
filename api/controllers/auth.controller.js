@@ -1,9 +1,8 @@
 import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
-//User:  MongoDB model for creating and saving user data.
-// bcryptjs: Library for hashing passwords securely.
-// errorHandler: Utility function for creating standardized error responses.
+import jwt from 'jsonwebtoken';
+
 export const signup = async (req, res, next) => {
   const { username, email, password, repeatpassword } = req.body;
 
@@ -34,6 +33,43 @@ export const signup = async (req, res, next) => {
   }
 };
 
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Check required fields
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: "Email and password are required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+
+    const isPasswordValid = bcryptjs.compareSync(password, user.password);
+
+    if (!isPasswordValid) {
+      return next(errorHandler(401, "Wrong Credentials!"));
+    }
+
+    
+    const { password: pwd, ...userData } = user._doc;
+
+    
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+    res.cookie("access_token", token, {
+      httpOnly: true,
+    }).status(200).json({ success: true, message: "Signin successful", user: userData });
+
+
+    
+  } catch (error) { 
+    next(error);
+  }
+};
 
 
 
