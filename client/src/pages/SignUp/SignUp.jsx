@@ -7,18 +7,13 @@ import photo1 from "../../assets/images/photo1.avif";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 export default function SignUp() {
   const navigate = useNavigate();
   const[error, setError] = useState(null);
   const[formData, setFormData] = useState({})
   const [Loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
-
   
-
    
 
   const handleChange = (e) => {
