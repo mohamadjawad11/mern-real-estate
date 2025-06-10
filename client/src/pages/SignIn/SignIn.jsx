@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { signInStart,signInSuccess,signInfailure } from "../../redux/user/userSlice";
+import OAuth from "../../components/OAuth/OAuth";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ const { loading, error } = useSelector((state) => state.user);
             <button className="signin-button" type="submit" disabled={loading}>
           {loading ? "Signing In..." : "Sign In"}
           </button>
+          <OAuth />
 
           </form>
           <p className="signup-link">

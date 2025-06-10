@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import photo1 from "../../assets/images/photo1.avif";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import OAuth from "../../components/OAuth/OAuth";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -98,13 +99,13 @@ const handleSubmit = async (e) => {
             <button disabled={Loading} className="signup-button" type="submit">
               {Loading ? "Loading..." : "Sign Up"}
             </button>
-          </form>
-          <div className="divider">
+             <div className="divider">
             <span>or</span>
           </div>
-          <button className="google-button">
-            <FcGoogle className="icon google-icon" /> Google
-          </button>
+          <OAuth />
+          </form>
+         
+          
           <p className="login-link">
             Already have an account?<Link to={"/signin"}><a>Log In</a></Link>
           </p>

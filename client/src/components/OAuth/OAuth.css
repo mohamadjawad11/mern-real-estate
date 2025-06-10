@@ -1,0 +1,37 @@
+.oauth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.google-button {
+  width: 100%; /* Full width */
+  max-width: 100%; /* Prevents overflow */
+  background-color: #d93025;
+  color: white;
+  border: none;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.google-button:hover {
+  background-color: #c5221f;
+  transform: scale(1.03);
+}
+
+.google-icon {
+  font-size: 20px;
+  background: white;
+  border-radius: 50%;
+  padding: 2px;
+}
