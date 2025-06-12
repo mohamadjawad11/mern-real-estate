@@ -98,7 +98,8 @@ body {
 /* NAVIGATION MENU */
 .nav-list {
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  gap: 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -108,6 +109,18 @@ body {
   display: flex;
   align-items: center;
 }
+
+.signin-text {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2d3436;
+  transition: color 0.3s ease;
+}
+
+.signin-text:hover {
+  color: #0077ff;
+}
+
 
 .nav-list a {
   text-decoration: none;
@@ -136,4 +149,21 @@ body {
 
 .nav-list a:hover::after {
   width: 100%;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  transition: transform 0.2s ease-in-out;
+  margin-left: 12px;
+  cursor: pointer;
+  margin-top: 7px;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+  border-color: #007bff;
 }

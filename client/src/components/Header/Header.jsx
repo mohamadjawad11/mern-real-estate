@@ -2,8 +2,12 @@ import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+
+
 
 export default function Header() {
+  const {currentUser} = useSelector(state => state.user);
   return (
     <header className="header">
       <div className="header-container">
@@ -25,13 +29,29 @@ export default function Header() {
           </button>
         </form>
 
-        <nav>
           <ul className="nav-list">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/signin">Sign In</Link></li>
-          </ul>
-        </nav>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li>
+          <Link to="/profile">
+      {currentUser && currentUser._id ? (
+        <img
+          src={currentUser.avatar}
+          alt="profile"
+          className="profile-avatar"
+          referrerPolicy="no-referrer"     
+
+          />
+
+      ) : (
+        <span className="signin-text">SignIn</span>
+      )}
+    </Link>
+  </li>
+</ul>
+
+
+          
       </div>
     </header>
   );
