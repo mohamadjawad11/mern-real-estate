@@ -36,12 +36,16 @@ export default function Header() {
           <Link to="/profile">
       {currentUser && currentUser._id ? (
         <img
-          src={currentUser.avatar}
-          alt="profile"
-          className="profile-avatar"
-          referrerPolicy="no-referrer"     
+  src={
+    currentUser.avatar?.startsWith("http")
+      ? currentUser.avatar
+      : `http://localhost:3000${currentUser.avatar}`
+  }
+  alt="profile"
+  className="profile-avatar"
+  referrerPolicy="no-referrer"
+/>
 
-          />
 
       ) : (
         <span className="signin-text">SignIn</span>
