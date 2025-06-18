@@ -1,6 +1,6 @@
 import express from 'express';
 //I should import the controller function for signup
-import { signup,signin,google } from '../controllers/auth.controller.js';
+import { signup,signin,google,signOut } from '../controllers/auth.controller.js';
 
 
 const router = express.Router();
@@ -10,5 +10,6 @@ const router = express.Router();
 router.post("/signup",signup);
 router.post("/signin",signin)
 router.post("/google",google);
+router.get("/signout",signOut);
 
 export default router;

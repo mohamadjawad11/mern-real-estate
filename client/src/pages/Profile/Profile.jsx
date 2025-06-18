@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useState } from "react";
-import { updateUser,deleteUserStart,deleteUserFailure,deleteUserSuccess } from "../../redux/user/userSlice";
+import { updateUser,deleteUserStart,deleteUserFailure,deleteUserSuccess,SignOutUserStart,SignOutUserFailure,SignOutUserSuccess } from "../../redux/user/userSlice";
 import "./Profile.css";
 
 export default function Profile() {
@@ -170,6 +170,21 @@ setPreview(
       }
     };
 
+  const handleSignOut = async () => {
+    try {
+      dispatch(SignOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-card">
@@ -241,7 +256,7 @@ setPreview(
 
         <div className="profile-actions">
           <span onClick={handleDeleteUser} className="delete-account">Delete Account?</span>
-          <span className="sign-out">Sign Out</span>
+          <span onClick={handleSignOut} className="sign-out">Sign Out</span>
         </div>
         
       </div>
