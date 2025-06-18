@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useState } from "react";
-import { updateUser } from "../../redux/user/userSlice";
+import { updateUser,deleteUserStart,deleteUserFailure,deleteUserSuccess } from "../../redux/user/userSlice";
 import "./Profile.css";
 
 export default function Profile() {
@@ -149,11 +149,33 @@ setPreview(
 
   };
 
+    const handleDeleteUser = async () => {
+      try {
+        dispatch(deleteUserStart());
+        const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
+          method: 'DELETE',
+        });
+        const data = await res.json();
+        if (data.success === false) {
+          dispatch(deleteUserFailure(data.message));
+          setErrorMessage(data.message);
+          setTimeout(() => setErrorMessage(""), 3000);
+          return;
+        }
+        dispatch(deleteUserSuccess(data));
+      } catch (error) {
+        dispatch(deleteUserFailure(error.message));
+         setErrorMessage("❌ " + (error.message || "Account deletion failed"));
+        setTimeout(() => setErrorMessage(""), 3000);
+      }
+    };
+
   return (
     <div className="profile-container">
       <div className="profile-card">
         <h1 className="profile-title">User Profile</h1>
 
+        
         {successMessage && <p className="success-message">{successMessage}</p>}
          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
@@ -218,7 +240,7 @@ setPreview(
 
 
         <div className="profile-actions">
-          <span className="delete-account">Delete Account?</span>
+          <span onClick={handleDeleteUser} className="delete-account">Delete Account?</span>
           <span className="sign-out">Sign Out</span>
         </div>
         
