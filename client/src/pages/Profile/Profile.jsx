@@ -8,6 +8,8 @@ export default function Profile() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
 
   if (!currentUser) {
     return <h1 style={{ textAlign: "center", marginTop: "5rem" }}>You must log in first.</h1>;
@@ -18,14 +20,23 @@ export default function Profile() {
     username: currentUser.username,
     email: currentUser.email,
     avatar: currentUser.avatar,
+    currentPassword: "",
+    newPassword: "",
   });
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [preview, setPreview] = useState(
-    currentUser.avatar?.startsWith("http")
-      ? currentUser.avatar
-      : `http://localhost:3000${currentUser.avatar}`
-  );
+  
+const fallbackAvatar = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const [preview, setPreview] = useState(
+  currentUser.avatar
+    ? (currentUser.avatar.startsWith("http") || currentUser.avatar.startsWith("data:")
+        ? currentUser.avatar
+        : `http://localhost:3000${currentUser.avatar}`)
+    : fallbackAvatar
+);
+
+
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -84,7 +95,10 @@ export default function Profile() {
     if (
       formData.username === currentUser.username &&
       formData.email === currentUser.email &&
-      formData.avatar === currentUser.avatar
+      formData.avatar === currentUser.avatar&&
+      formData.newPassword === ""
+      
+      
     ) {
       setSuccessMessage("⚠️ No changes made.");
       setTimeout(() => setSuccessMessage(""), 3000);
@@ -92,27 +106,47 @@ export default function Profile() {
     }
 
     try {
-      const res = await fetch("/api/user/update-profile", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
+  const res = await fetch("/api/user/update-profile", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(formData),
+  });
 
-      const updatedUser = await res.json();
-      dispatch(updateUser(updatedUser));
+  const data = await res.json();
 
-      setPreview(
-        updatedUser.avatar?.startsWith("http")
-          ? updatedUser.avatar
-          : `http://localhost:3000${updatedUser.avatar}`
-      );
+  if (!res.ok) {
+  setErrorMessage("❌ " +"Profile update failed");
+  setTimeout(() => setErrorMessage(""), 3000);
 
-      setSuccessMessage("✅ Profile updated successfully!");
-      setTimeout(() => setSuccessMessage(""), 3000);
-    } catch (err) {
-      console.error("Profile update failed:", err);
-    }
+    return;
+    
+  }
+
+dispatch(updateUser(data));
+setPreview(
+  data.avatar
+    ? (data.avatar.startsWith("http") || data.avatar.startsWith("data:")
+        ? data.avatar
+        : `http://localhost:3000${data.avatar}`)
+    : fallbackAvatar
+);
+
+
+
+  setSuccessMessage(
+    data.passwordChanged
+      ? "✅ Password and profile updated!"
+      : "✅ Profile updated successfully!"
+  );
+
+  setFormData((prev) => ({ ...prev, newPassword: "", currentPassword: "" }));
+  setTimeout(() => setSuccessMessage(""), 3000);
+
+} catch (err) {
+  console.error("Profile update failed:", err);
+}
+
   };
 
   return (
@@ -121,6 +155,7 @@ export default function Profile() {
         <h1 className="profile-title">User Profile</h1>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
+         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <form className="profile-form" onSubmit={handleSubmit}>
           <input
@@ -138,7 +173,8 @@ export default function Profile() {
               alt="profile"
               className={`profile-avatar2 ${isUploading ? "faded" : uploadComplete ? "fade-in" : ""}`}
               referrerPolicy="no-referrer"
-            />
+              />
+
             {isUploading && (
               <div className="upload-progress-bar">
                 Uploading... {uploadProgress}%
@@ -162,20 +198,35 @@ export default function Profile() {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Current Password"
             className="profile-input"
-            disabled
-          />
+            value={formData.currentPassword}
+            onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })}
+            />
+          <input
+            type="password"
+            placeholder="New Password"
+            className="profile-input"
+            value={formData.newPassword}
+            onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
+            />
+
           <button className="profile-button" type="submit">
             Update
           </button>
         </form>
 
+
         <div className="profile-actions">
           <span className="delete-account">Delete Account?</span>
           <span className="sign-out">Sign Out</span>
         </div>
+        
       </div>
+     
+
     </div>
+    
   );
 }
+

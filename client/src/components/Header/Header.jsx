@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 
 export default function Header() {
   const {currentUser} = useSelector(state => state.user);
+  const fallbackAvatar = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
   return (
     <header className="header">
       <div className="header-container">
@@ -35,16 +37,19 @@ export default function Header() {
           <li>
           <Link to="/profile">
       {currentUser && currentUser._id ? (
-        <img
+  <img
   src={
-    currentUser.avatar?.startsWith("http")
-      ? currentUser.avatar
-      : `http://localhost:3000${currentUser.avatar}`
+    currentUser.avatar
+      ? (currentUser.avatar.startsWith("http") || currentUser.avatar.startsWith("data:")
+          ? currentUser.avatar
+          : `http://localhost:3000${currentUser.avatar}`)
+      : fallbackAvatar
   }
   alt="profile"
   className="profile-avatar"
   referrerPolicy="no-referrer"
 />
+
 
 
       ) : (
