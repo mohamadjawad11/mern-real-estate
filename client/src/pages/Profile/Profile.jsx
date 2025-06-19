@@ -9,6 +9,8 @@ export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
 
 
   if (!currentUser) {
@@ -149,26 +151,74 @@ setPreview(
 
   };
 
-    const handleDeleteUser = async () => {
-      try {
-        dispatch(deleteUserStart());
-        const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
-          method: 'DELETE',
-        });
-        const data = await res.json();
-        if (data.success === false) {
-          dispatch(deleteUserFailure(data.message));
-          setErrorMessage(data.message);
-          setTimeout(() => setErrorMessage(""), 3000);
-          return;
-        }
-        dispatch(deleteUserSuccess(data));
-      } catch (error) {
-        dispatch(deleteUserFailure(error.message));
-         setErrorMessage("❌ " + (error.message || "Account deletion failed"));
-        setTimeout(() => setErrorMessage(""), 3000);
-      }
-    };
+    // const handleDeleteUser = async () => {
+    //   try {
+    //     dispatch(deleteUserStart());
+    //     const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
+    //       method: 'DELETE',
+    //     });
+    //     const data = await res.json();
+    //     if (data.success === false) {
+    //       dispatch(deleteUserFailure(data.message));
+    //       setErrorMessage(data.message);
+    //       setTimeout(() => setErrorMessage(""), 3000);
+    //       return;
+    //     }
+    //     dispatch(deleteUserSuccess(data));
+    //   } catch (error) {
+    //     dispatch(deleteUserFailure(error.message));
+    //      setErrorMessage("❌ " + (error.message || "Account deletion failed"));
+    //     setTimeout(() => setErrorMessage(""), 3000);
+    //   }
+    // };
+//     const handleDeleteUser = async () => {
+//   const confirmed = window.confirm("Are you sure you want to delete your account?");
+//   if (!confirmed) return; // If user cancels, stop here
+
+//   try {
+//     dispatch(deleteUserStart());
+
+//     const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
+//       method: 'DELETE',
+//     });
+
+//     const data = await res.json();
+
+//     if (data.success === false) {
+//       setErrorMessage(data.message || "Account deletion failed.");
+//       dispatch(deleteUserFailure(data.message));
+//       return;
+//     }
+
+//     dispatch(deleteUserSuccess(data));
+//     // Optionally, redirect or log out user here
+//   } catch (error) {
+//     setErrorMessage(error.message || "Something went wrong.");
+//     dispatch(deleteUserFailure(error.message));
+//   }
+// };
+const confirmDeleteUser = async () => {
+  try {
+    dispatch(deleteUserStart());
+    const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if (data.success === false) {
+      setErrorMessage(data.message || "Account deletion failed.");
+      dispatch(deleteUserFailure(data.message));
+      return;
+    }
+    dispatch(deleteUserSuccess(data));
+  } catch (error) {
+    setErrorMessage(error.message || "Something went wrong.");
+    dispatch(deleteUserFailure(error.message));
+  } finally {
+    setShowConfirmModal(false);
+  }
+};
+
+
 
   const handleSignOut = async () => {
     try {
@@ -255,11 +305,27 @@ setPreview(
 
 
         <div className="profile-actions">
-          <span onClick={handleDeleteUser} className="delete-account">Delete Account?</span>
+          {/* <span onClick={handleDeleteUser} className="delete-account">Delete Account?</span> */}
+          <span onClick={() => setShowConfirmModal(true)} className="delete-account">
+  Delete Account?
+</span>
+
           <span onClick={handleSignOut} className="sign-out">Sign Out</span>
         </div>
         
       </div>
+      {showConfirmModal && (
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <p>⚠️ Are you sure you want to delete your account?</p>
+      <div className="modal-buttons">
+        <button onClick={confirmDeleteUser} className="confirm-btn">Yes, delete</button>
+        <button onClick={() => setShowConfirmModal(false)} className="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+)}
+
      
 
     </div>
