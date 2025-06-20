@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { updateUser,deleteUserStart,deleteUserFailure,deleteUserSuccess,SignOutUserStart,SignOutUserFailure,SignOutUserSuccess } from "../../redux/user/userSlice";
 import "./Profile.css";
 
@@ -151,52 +152,7 @@ setPreview(
 
   };
 
-    // const handleDeleteUser = async () => {
-    //   try {
-    //     dispatch(deleteUserStart());
-    //     const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
-    //       method: 'DELETE',
-    //     });
-    //     const data = await res.json();
-    //     if (data.success === false) {
-    //       dispatch(deleteUserFailure(data.message));
-    //       setErrorMessage(data.message);
-    //       setTimeout(() => setErrorMessage(""), 3000);
-    //       return;
-    //     }
-    //     dispatch(deleteUserSuccess(data));
-    //   } catch (error) {
-    //     dispatch(deleteUserFailure(error.message));
-    //      setErrorMessage("❌ " + (error.message || "Account deletion failed"));
-    //     setTimeout(() => setErrorMessage(""), 3000);
-    //   }
-    // };
-//     const handleDeleteUser = async () => {
-//   const confirmed = window.confirm("Are you sure you want to delete your account?");
-//   if (!confirmed) return; // If user cancels, stop here
 
-//   try {
-//     dispatch(deleteUserStart());
-
-//     const res = await fetch(`/api/deleting/delete/${currentUser._id}`, {
-//       method: 'DELETE',
-//     });
-
-//     const data = await res.json();
-
-//     if (data.success === false) {
-//       setErrorMessage(data.message || "Account deletion failed.");
-//       dispatch(deleteUserFailure(data.message));
-//       return;
-//     }
-
-//     dispatch(deleteUserSuccess(data));
-//     // Optionally, redirect or log out user here
-//   } catch (error) {
-//     setErrorMessage(error.message || "Something went wrong.");
-//     dispatch(deleteUserFailure(error.message));
-//   }
-// };
 const confirmDeleteUser = async () => {
   try {
     dispatch(deleteUserStart());
@@ -301,6 +257,12 @@ const confirmDeleteUser = async () => {
           <button className="profile-button" type="submit">
             Update
           </button>
+
+          <Link to="/create-listing" className="create-listing-button" uppercase>
+            Create Listing
+          </Link>
+
+
         </form>
 
 
