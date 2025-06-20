@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCloudUploadAlt } from "react-icons/fa";
-
 import "./CreateListing.css";
 
 export default function CreateListing() {
-  const API_KEY = "9f7a35c9176c30c507aa666e3809b603";
+  const API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
+
+
 
   const [images, setImages] = useState([]);
   const [uploadedURLs, setUploadedURLs] = useState([]);
@@ -56,7 +57,7 @@ export default function CreateListing() {
     setUploadedURLs(uploaded);
     setFormData((prev) => ({ ...prev, images: uploaded }));
     setImages([]);
-    alert("All images uploaded successfully!");
+    
   };
 
   const handleRemoveUploadedImage = (index) => {
