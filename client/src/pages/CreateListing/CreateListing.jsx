@@ -3,11 +3,13 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import "./CreateListing.css";
 import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 export default function CreateListing() {
   const API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
   const currentUser = useSelector(state => state.user);
   const token = currentUser?.token || currentUser?.currentUser?.token;
+  const navigate = useNavigate();
 
   const [images, setImages] = useState([]);
   const [uploadedURLs, setUploadedURLs] = useState([]);
@@ -96,51 +98,33 @@ const uploadToImgBB = async () => {
     setFormData((prev) => ({ ...prev, images: updated }));
   };
 
-// const handleChange = (e) => {
-//   const { id, checked, value } = e.target;
-
-//   if (id === "sale" || id === "rent") {
-//     setFormData((prev) => ({
-//       ...prev,
-//       type: id === "sale" ? "sell" : "rent",
-//     }));
-//   } else if (["parking", "furnished", "offer"].includes(id)) {
-//     setFormData((prev) => ({ ...prev, [id]: checked }));
-//   } else {
-//     setFormData((prev) => ({ ...prev, [id]: value }));
-//   }
-// };
-
 const handleChange = (e) => {
   const { id, checked, value } = e.target;
 
   if (id === "sale" || id === "rent") {
-    setFormData((prev) => ({ ...prev, type: id === "sale" ? "sell" : "rent" }));
+    setFormData((prev) => ({
+      ...prev,
+      type: id === "sale" ? "sell" : "rent",
+    }));
   } else if (["parking", "furnished", "offer"].includes(id)) {
     setFormData((prev) => ({ ...prev, [id]: checked }));
   } else {
-    // Special validation for discountedPrice
-    if (id === "discountedPrice" && Number(value) > Number(formData.regularPrice)) {
-      setErrorMessage("❌ Discounted price must be less than or equal to regular price.");
-      return;
-    }
-    if (id === "regularPrice" && Number(formData.discountedPrice) > Number(value)) {
-      setErrorMessage("❌ Regular price must be more than or equal to discounted price.");
-      return;
-    }
-
     setFormData((prev) => ({ ...prev, [id]: value }));
-    setErrorMessage(""); // Clear any old error
   }
 };
 
-
-  console.log("Current User:", currentUser);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
+      if(formData.images.length === 0){
+        setErrorMessage("❌ Please upload at least one image.");
+      }
+      if(+formData.regularPrice < +formData.discountedPrice){
+        setErrorMessage("❌ Discounted price cannot be higher than regular price.");
+        return;
+      }
       setLoading(true);
       setError(false);
  const res = await fetch('/api/listing/create', {
@@ -181,8 +165,8 @@ const handleChange = (e) => {
   setErrorMessage("");
   setSuccessMessage("✅ Listing created successfully!");
 setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
-
 }
+navigate(`/listing/${data._id}`); 
 
     }catch(error){
       setError(error.message);
@@ -237,7 +221,7 @@ setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
             </div>
             {formData.offer && (
               <div>
-                <input type="number" id="discountedPrice" min="50" value={formData.discountedPrice} onChange={handleChange} />
+                <input type="number" id="discountedPrice" min="0" value={formData.discountedPrice} onChange={handleChange} />
                 <label>Discounted price<br />($ / month)</label>
               </div>
             )}
