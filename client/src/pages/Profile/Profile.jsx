@@ -39,8 +39,6 @@ const [preview, setPreview] = useState(
     : fallbackAvatar
 );
 
-
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [uploadProgress, setUploadProgress] = useState(0);
   // eslint-disable-next-line react-hooks/rules-of-hooks
