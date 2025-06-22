@@ -53,10 +53,16 @@ const handleImageChange = (e) => {
 
 
 const uploadToImgBB = async () => {
-  if (images.length === 0) return setErrorMessage("❌ Choose at least 1 image.");
+  if (images.length === 0) {
+    setErrorMessage("❌ Choose at least 1 image.");
+    setTimeout(() => setErrorMessage(""), 3000);
+    return;
+  } 
+
 
   if (uploadedURLs.length + images.length > 6) {
     setErrorMessage("❌ Cannot upload more than 6 images in total.");
+    setTimeout(() => setErrorMessage(""), 3000);
     return;
   }
 
@@ -115,64 +121,126 @@ const handleChange = (e) => {
 
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try{
-      if(formData.images.length === 0){
-        setErrorMessage("❌ Please upload at least one image.");
-      }
-      if(+formData.regularPrice < +formData.discountedPrice){
-        setErrorMessage("❌ Discounted price cannot be higher than regular price.");
-        return;
-      }
-      setLoading(true);
-      setError(false);
- const res = await fetch('/api/listing/create', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`, 
-  },
-  body: JSON.stringify({
-    ...formData,
-    userRef: currentUser?.currentUser?._id || currentUser?._id, 
-  }),
-});
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+   
+//     try{
+//        if(+formData.regularPrice < +formData.discountedPrice){
+//         setErrorMessage("❌ Discounted price cannot be higher than regular price.");
+//         return;
+//       }
+//       setLoading(true);
+//       setError(false);
+//       const res = await fetch('/api/listing/create', {
+//        method: 'POST',
+//        headers: {
+//          'Content-Type': 'application/json',
+//          'Authorization': `Bearer ${token}`, 
+//        },
+//        body: JSON.stringify({
+//          ...formData,
+//          userRef: currentUser?.currentUser?._id || currentUser?._id, 
+//   }),
+//   });
 
-      const data = await res.json();
-      setLoading(false);
-      if(data.success===false){
-        setError(data.message);
-      }
-      else {
-  // Reset the form
-  setFormData({
-    name: "",
-    description: "",
-    address: "",
-    type: "sell",
-    parking: false,
-    furnished: false,
-    offer: false,
-    bedrooms: 1,
-    bathrooms: 1,
-    regularPrice: 0,
-    discountedPrice: 0,
-    images: [],
-  });
-  setImages([]);
-  setUploadedURLs([]);
-  setErrorMessage("");
-  setSuccessMessage("✅ Listing created successfully!");
-setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
-}
-navigate(`/listing/${data._id}`); 
+//       const data = await res.json();
+//       setLoading(false);
+//       if(data.success===false){
+//         setError(data.message);
+//       }
+//       else {
+//   // Reset the form
+//   setFormData({
+//     name: "",
+//     description: "",
+//     address: "",
+//     type: "sell",
+//     parking: false,
+//     furnished: false,
+//     offer: false,
+//     bedrooms: 1,
+//     bathrooms: 1,
+//     regularPrice: 0,
+//     discountedPrice: 0,
+//     images: [],
+//   });
+//      setImages([]);
+//      setUploadedURLs([]);
+//      setErrorMessage("");
+//      setSuccessMessage("✅ Listing created successfully!");
+//     setTimeout(() => setSuccessMessage(""), 3000); 
+// }
 
-    }catch(error){
-      setError(error.message);
-      setLoading(false);
+//     navigate(`/listing/${data._id}`); 
+
+//     }catch(error){
+//       setError(error.message);
+//       setLoading(false);
+//     }
+//   };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    if (+formData.regularPrice < +formData.discountedPrice) {
+      setErrorMessage("❌ Discounted price cannot be higher than regular price.");
+      return;
     }
-  };
+
+    setLoading(true);
+    setError(false);
+
+    const res = await fetch('/api/listing/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        ...formData,
+        userRef: currentUser?.currentUser?._id || currentUser?._id,
+      }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (data.success === false) {
+      setError(data.message);
+    } else {
+      // Reset form
+      setFormData({
+        name: "",
+        description: "",
+        address: "",
+        type: "sell",
+        parking: false,
+        furnished: false,
+        offer: false,
+        bedrooms: 1,
+        bathrooms: 1,
+        regularPrice: 0,
+        discountedPrice: 0,
+        images: [],
+      });
+      setImages([]);
+      setUploadedURLs([]);
+      setErrorMessage("");
+      setSuccessMessage("✅ Listing created successfully!");
+
+      
+      setTimeout(() => {
+        setSuccessMessage("");
+        navigate(`/listing/${data._id}`);
+      }, 3000);
+    }
+
+  } catch (error) {
+    setError(error.message);
+    setLoading(false);
+  }
+};
+
 
   return (
     <form className="listing-form-container" onSubmit={handleSubmit}>
@@ -189,7 +257,7 @@ navigate(`/listing/${data._id}`);
               <span>Sell</span>
             </label>
             <label className="input-inline">
-              <input type="radio" name="type" id="rent" checked={formData.type === "rent"} onChange={handleChange} />
+              <input type="radio" name="type" id="rent" checked={formData.type === "rent"} onChange={handleChange}  />
               <span>Rent</span>
             </label>
             <label className="input-inline">
