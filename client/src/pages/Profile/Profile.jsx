@@ -267,13 +267,18 @@ const confirmDeleteUser = async () => {
         <div className="profile-actions">
           {/* <span onClick={handleDeleteUser} className="delete-account">Delete Account?</span> */}
           <span onClick={() => setShowConfirmModal(true)} className="delete-account">
-  Delete Account?
-</span>
+              Delete Account?
+          </span>
+          <Link to="/my-listings" className="show-listings">
+            MyListings
+          </Link>
 
           <span onClick={handleSignOut} className="sign-out">Sign Out</span>
+          
         </div>
         
       </div>
+     
       {showConfirmModal && (
   <div className="modal-overlay">
     <div className="modal-content">
@@ -283,6 +288,7 @@ const confirmDeleteUser = async () => {
         <button onClick={() => setShowConfirmModal(false)} className="cancel-btn">Cancel</button>
       </div>
     </div>
+   
   </div>
 )}
 

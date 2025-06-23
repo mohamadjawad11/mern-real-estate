@@ -148,6 +148,7 @@
 .sign-out {
   cursor: pointer;
   transition: color 0.2s;
+  margin-top: 5px;
   
   color: #f9241d;
 }
@@ -230,3 +231,22 @@
   transform: translateY(1px);
 }
 
+.show-listings {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 30px;
+  margin-bottom: 5px;
+  color: #ffffff;
+  background-color: #5282b5;
+  padding: 6px 20px;
+  border-radius: 8px;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.show-listings:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

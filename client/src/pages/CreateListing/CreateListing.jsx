@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaTrashAlt, FaCloudUploadAlt } from "react-icons/fa";
 import "./CreateListing.css";
-import {useSelector} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateListing() {
   const API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
-  const currentUser = useSelector(state => state.user);
+  const currentUser = useSelector((state) => state.user);
   const token = currentUser?.token || currentUser?.currentUser?.token;
   const navigate = useNavigate();
 
@@ -18,7 +17,7 @@ export default function CreateListing() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
- 
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -31,216 +30,151 @@ export default function CreateListing() {
     bathrooms: 1,
     regularPrice: 0,
     discountedPrice: 0,
-    images: [],
+    imageUrls: [],
   });
 
-const handleImageChange = (e) => {
-  const selected = Array.from(e.target.files);
-  const totalImages = images.length + uploadedURLs.length;
+  const handleImageChange = (e) => {
+    const selected = Array.from(e.target.files);
+    const totalImages = images.length + uploadedURLs.length;
 
-  if (totalImages >= 6) {
-    setErrorMessage("❌ Maximum 6 images allowed.");
-    setTimeout(() => setErrorMessage(""), 3000);
-    return;
-  }
-
-  const allowedCount = Math.min(6 - totalImages, selected.length);
-  const accepted = selected.slice(0, allowedCount);
-
-  setImages((prev) => [...prev, ...accepted]);
-  setErrorMessage(""); // Clear error if any
-};
-
-
-const uploadToImgBB = async () => {
-  if (images.length === 0) {
-    setErrorMessage("❌ Choose at least 1 image.");
-    setTimeout(() => setErrorMessage(""), 3000);
-    return;
-  } 
-
-
-  if (uploadedURLs.length + images.length > 6) {
-    setErrorMessage("❌ Cannot upload more than 6 images in total.");
-    setTimeout(() => setErrorMessage(""), 3000);
-    return;
-  }
-
-  setIsUploading(true);
-  const uploaded = [...uploadedURLs];
-
-  for (const image of images) {
-    const formData = new FormData();
-    formData.append("image", image);
-
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      uploaded.push(data.data.url);
-    } else {
-      setErrorMessage("❌ Some images failed to upload.");
-      setIsUploading(false);
+    if (totalImages >= 6) {
+      setErrorMessage("❌ Maximum 6 images allowed.");
+      setTimeout(() => setErrorMessage(""), 3000);
       return;
     }
-  }
 
-  setUploadedURLs(uploaded);
-  setFormData((prev) => ({ ...prev, images: uploaded }));
-  setImages([]);
-  setErrorMessage("");
-  setIsUploading(false);
-};
+    const allowedCount = Math.min(6 - totalImages, selected.length);
+    const accepted = selected.slice(0, allowedCount);
 
+    setImages((prev) => [...prev, ...accepted]);
+    setErrorMessage("");
+  };
 
+  const uploadToImgBB = async () => {
+    if (images.length === 0) {
+      setErrorMessage("❌ Choose at least 1 image.");
+      setTimeout(() => setErrorMessage(""), 3000);
+      return;
+    }
+
+    if (uploadedURLs.length + images.length > 6) {
+      setErrorMessage("❌ Cannot upload more than 6 images in total.");
+      setTimeout(() => setErrorMessage(""), 3000);
+      return;
+    }
+
+    setIsUploading(true);
+    const uploaded = [...uploadedURLs];
+
+    for (const image of images) {
+      const imgData = new FormData();
+      imgData.append("image", image);
+
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, {
+        method: "POST",
+        body: imgData,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        uploaded.push(data.data.url);
+      } else {
+        setErrorMessage("❌ Some images failed to upload.");
+        setIsUploading(false);
+        return;
+      }
+    }
+
+    setUploadedURLs(uploaded);
+    setFormData((prev) => ({ ...prev, imageUrls: uploaded }));
+    setImages([]);
+    setErrorMessage("");
+    setIsUploading(false);
+  };
 
   const handleRemoveUploadedImage = (index) => {
     const updated = [...uploadedURLs];
     updated.splice(index, 1);
     setUploadedURLs(updated);
-    setFormData((prev) => ({ ...prev, images: updated }));
+    setFormData((prev) => ({ ...prev, imageUrls: updated }));
   };
 
-const handleChange = (e) => {
-  const { id, checked, value } = e.target;
+  const handleChange = (e) => {
+    const { id, checked, value } = e.target;
 
-  if (id === "sale" || id === "rent") {
-    setFormData((prev) => ({
-      ...prev,
-      type: id === "sale" ? "sell" : "rent",
-    }));
-  } else if (["parking", "furnished", "offer"].includes(id)) {
-    setFormData((prev) => ({ ...prev, [id]: checked }));
-  } else {
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  }
-};
+    if (id === "sale" || id === "rent") {
+      setFormData((prev) => ({
+        ...prev,
+        type: id === "sale" ? "sell" : "rent",
+      }));
+    } else if (["parking", "furnished", "offer"].includes(id)) {
+      setFormData((prev) => ({ ...prev, [id]: checked }));
+    } else {
+      setFormData((prev) => ({ ...prev, [id]: value }));
+    }
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-   
-//     try{
-//        if(+formData.regularPrice < +formData.discountedPrice){
-//         setErrorMessage("❌ Discounted price cannot be higher than regular price.");
-//         return;
-//       }
-//       setLoading(true);
-//       setError(false);
-//       const res = await fetch('/api/listing/create', {
-//        method: 'POST',
-//        headers: {
-//          'Content-Type': 'application/json',
-//          'Authorization': `Bearer ${token}`, 
-//        },
-//        body: JSON.stringify({
-//          ...formData,
-//          userRef: currentUser?.currentUser?._id || currentUser?._id, 
-//   }),
-//   });
-
-//       const data = await res.json();
-//       setLoading(false);
-//       if(data.success===false){
-//         setError(data.message);
-//       }
-//       else {
-//   // Reset the form
-//   setFormData({
-//     name: "",
-//     description: "",
-//     address: "",
-//     type: "sell",
-//     parking: false,
-//     furnished: false,
-//     offer: false,
-//     bedrooms: 1,
-//     bathrooms: 1,
-//     regularPrice: 0,
-//     discountedPrice: 0,
-//     images: [],
-//   });
-//      setImages([]);
-//      setUploadedURLs([]);
-//      setErrorMessage("");
-//      setSuccessMessage("✅ Listing created successfully!");
-//     setTimeout(() => setSuccessMessage(""), 3000); 
-// }
-
-//     navigate(`/listing/${data._id}`); 
-
-//     }catch(error){
-//       setError(error.message);
-//       setLoading(false);
-//     }
-//   };
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
     if (+formData.regularPrice < +formData.discountedPrice) {
       setErrorMessage("❌ Discounted price cannot be higher than regular price.");
       return;
     }
 
-    setLoading(true);
-    setError(false);
+    try {
+      setLoading(true);
+      setError(false);
 
-    const res = await fetch('/api/listing/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        ...formData,
-        userRef: currentUser?.currentUser?._id || currentUser?._id,
-      }),
-    });
+      console.log("Submitting:", formData); // optional debug log
 
-    const data = await res.json();
-    setLoading(false);
-
-    if (data.success === false) {
-      setError(data.message);
-    } else {
-      // Reset form
-      setFormData({
-        name: "",
-        description: "",
-        address: "",
-        type: "sell",
-        parking: false,
-        furnished: false,
-        offer: false,
-        bedrooms: 1,
-        bathrooms: 1,
-        regularPrice: 0,
-        discountedPrice: 0,
-        images: [],
+      const res = await fetch("/api/listing/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ...formData,
+          userRef: currentUser?.currentUser?._id || currentUser?._id,
+        }),
       });
-      setImages([]);
-      setUploadedURLs([]);
-      setErrorMessage("");
-      setSuccessMessage("✅ Listing created successfully!");
 
-      
-      setTimeout(() => {
-        setSuccessMessage("");
-        navigate(`/listing/${data._id}`);
-      }, 3000);
+      const data = await res.json();
+      setLoading(false);
+
+      if (data.success === false) {
+        setError(data.message);
+      } else {
+        setFormData({
+          name: "",
+          description: "",
+          address: "",
+          type: "sell",
+          parking: false,
+          furnished: false,
+          offer: false,
+          bedrooms: 1,
+          bathrooms: 1,
+          regularPrice: 0,
+          discountedPrice: 0,
+          imageUrls: [],
+        });
+        setImages([]);
+        setUploadedURLs([]);
+        setErrorMessage("");
+        setSuccessMessage("✅ Listing created successfully!");
+
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate(`/listing/${data._id}`);
+        }, 3000);
+      }
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
     }
-
-  } catch (error) {
-    setError(error.message);
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <form className="listing-form-container" onSubmit={handleSubmit}>
@@ -257,7 +191,7 @@ const handleSubmit = async (e) => {
               <span>Sell</span>
             </label>
             <label className="input-inline">
-              <input type="radio" name="type" id="rent" checked={formData.type === "rent"} onChange={handleChange}  />
+              <input type="radio" name="type" id="rent" checked={formData.type === "rent"} onChange={handleChange} />
               <span>Rent</span>
             </label>
             <label className="input-inline">
@@ -300,28 +234,25 @@ const handleSubmit = async (e) => {
           <p><strong>Images:</strong> Upload up to 6 images. The first will be the cover.</p>
           <div className="image-upload-wrapper">
             <div className="image-upload-border">
-             <div className="custom-file-wrapper">
-  <label htmlFor="images" className="custom-file-label">
-    <FaCloudUploadAlt style={{ marginRight: "13px", width:"40px", height:"15px" }} />
-    {images.length}/6 selected
-  </label>
-  <input
-    type="file"
-    id="images"
-    accept="image/*"
-    multiple
-    className="custom-file-input"
-    onChange={handleImageChange}
-  />
-</div>
-
-
-              <span className="image-counter">{images.length} file{images.length !== 1 ? 's' : ''} selected</span>
+              <div className="custom-file-wrapper">
+                <label htmlFor="images" className="custom-file-label">
+                  <FaCloudUploadAlt style={{ marginRight: "13px", width: "40px", height: "15px" }} />
+                  {images.length}/6 selected
+                </label>
+                <input
+                  type="file"
+                  id="images"
+                  accept="image/*"
+                  multiple
+                  className="custom-file-input"
+                  onChange={handleImageChange}
+                />
+              </div>
+              <span className="image-counter">{images.length} file{images.length !== 1 ? "s" : ""} selected</span>
             </div>
             <button type="button" className="upload-btn" onClick={uploadToImgBB} disabled={isUploading}>
-  {isUploading ? "UPLOADING..." : "UPLOAD"}
-</button>
-
+              {isUploading ? "UPLOADING..." : "UPLOAD"}
+            </button>
           </div>
 
           {uploadedURLs.length > 0 && (
@@ -343,7 +274,6 @@ const handleSubmit = async (e) => {
           {successMessage && <p className="success-message">{successMessage}</p>}
           {error && <p className="error-message">{error}</p>}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-
         </div>
       </div>
     </form>

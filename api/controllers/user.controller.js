@@ -18,17 +18,22 @@ export const deleteUser = async (req, res, next) => {
 };
 
 export const getUserListing = async (req, res, next) => {
+  try {
+    const userIdFromToken = (req.user._id || req.user.id)?.toString();
+    const userIdFromParams = req.params.id.toString();
 
-  if(req.user.id !== req.params.id)
-    return next(errorHandler(401, 'You can only access your own listings!'));
-  else{
-    try{
-      const listing= await Listing.find({userRef:req.params.id});
-      res.status(200).json(listing);
-    }catch(error){
-      next(error);
-
+    if (userIdFromToken !== userIdFromParams) {
+      return next(errorHandler(401, 'You can only access your own listings!'));
     }
-  }
 
-}
+    const listings = await Listing.find({ userRef: userIdFromParams });
+    res.status(200).json({
+      success: true,
+      data: listings,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
