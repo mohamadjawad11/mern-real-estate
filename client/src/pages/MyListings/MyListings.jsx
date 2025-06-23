@@ -36,6 +36,28 @@ export default function MyListings() {
     fetchListings();
   }, [currentUser._id]);
 
+  const handleListingDelete = async (listingId) => {
+    try{
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${currentUser.token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setUserListings((prev)=>prev.filter((listing)=>listing._id !== listingId));
+      } else {
+        console.error("❌ Failed to delete listing:", data.message);
+      }
+    }catch(error){
+      console.error("❌ Failed to delete listing:", error.message);
+      
+    }
+  }
+
   return (
     <div className="my-listings-container">
       <h1 className="my-listings-title">Your Listings</h1>
@@ -84,7 +106,7 @@ export default function MyListings() {
   <div className="listing-actions">
     <Link to={`/update-listing/${listing._id}`} className="edit-btn">Edit</Link>
     <Link to={`/listing/${listing._id}`} className="view-btn">View</Link>
-    <button className="delete-btn">Delete</button>
+    <button onClick={()=>handleListingDelete(listing._id)} className="delete-btn">Delete</button>
     
   </div>
 </div>

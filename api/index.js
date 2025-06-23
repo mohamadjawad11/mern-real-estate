@@ -33,7 +33,8 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/deleting', deletingRouter);
 app.use('/api/listing',listingRouter);
-app.use('/api/display', displayRoute); // ✅ This mounts /api/display routes
+app.use('/api/display', displayRoute); 
+
 
 
 
