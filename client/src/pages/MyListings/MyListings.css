@@ -100,7 +100,7 @@
 .listing-specs{
   font-size: 1rem;
   color: #555;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   line-height: 1.4;
   display: flex;
   justify-content: left;
@@ -135,3 +135,25 @@
 .view-btn:hover {
   background-color: #047f3f; /* darker blue on hover */
 }
+
+.type-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  border-radius: 5px;
+  cursor: default;
+  opacity: 0.8;
+  user-select: none;
+}
+
+.type-badge.sell {
+  background-color: #3498db; /* blue for sell */
+}
+
+.type-badge.rent {
+  background-color: #2ecc71; /* green for rent */
+}
+

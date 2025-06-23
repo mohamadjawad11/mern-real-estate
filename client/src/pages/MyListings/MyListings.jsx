@@ -71,6 +71,9 @@ export default function MyListings() {
   <p className="listing-price">
     ${listing.offer ? listing.discountedPrice : listing.regularPrice}
     {listing.type === 'rent' && ' / month'}
+    <span className={`type-badge ${listing.type === 'rent' ? 'rent' : 'sell'}`}>
+    {listing.type === 'rent' ? 'Rent' : 'Sell'}
+  </span>
   </p>
 
   <div className="listing-specs">
