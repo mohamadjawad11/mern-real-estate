@@ -8,6 +8,7 @@ import authRouter from './routes/auth.route.js';
 import deletingRouter from './routes/deleting.route.js';
 import listingRouter from './routes/listing.route.js';
 import displayRoute from './routes/display.route.js'; 
+import  getListing  from './routes/listing.route.js'
 
 
 import cookieParser from 'cookie-parser';
@@ -34,6 +35,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/deleting', deletingRouter);
 app.use('/api/listing',listingRouter);
 app.use('/api/display', displayRoute); 
+app.use('/api/listing', getListing);
 
 
 
