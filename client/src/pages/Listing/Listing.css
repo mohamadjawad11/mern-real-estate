@@ -41,6 +41,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
+
 }
 
 .share-button:hover {
@@ -191,6 +192,32 @@
   display: flex;
   flex-direction: column;
   gap: 0px;
+}
+
+.contact-agent {
+  background: linear-gradient(135deg, #092747, #067796); /* blue gradient */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 78px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 25px auto 0; /* Top margin + center horizontally */
+  display: block; /* Required for margin auto to work */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  margin-top: 45px;
+  
+}
+
+.contact-agent:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #0056b3, #00a0d9);
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.4);
 }
 
 

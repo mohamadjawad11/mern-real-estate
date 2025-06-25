@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Listing.css';
+import {useSelector} from 'react-redux';
 import { FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking, FaShare } from 'react-icons/fa';
+import Contact from '../Contact/Contact.jsx';
 
 export default function Listing() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false);
   const params = useParams();
+  const {currentUser} = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -80,6 +84,16 @@ export default function Listing() {
               <li><FaParking /> {listing.parking ? 'Parking spot' : 'No Parking'}</li>
               <li><FaChair /> {listing.furnished ? 'Furnished' : 'Unfurnished'}</li>
             </ul>
+            {currentUser && listing.userRef !==currentUser._id && !contact && (
+              <button 
+              className='contact-agent'
+              onClick={()=>setContact(true)}>
+              
+              Contact Landlord
+              </button>)}
+              {contact && <Contact listing={listing}/>}
+            
+            
           </div>
         </div>
       )}
