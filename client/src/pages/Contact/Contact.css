@@ -2,7 +2,7 @@
   background-color: #f9f9f9;
   padding: 20px 25px;
   border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   max-width: 600px;
   margin: 20px auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,7 +20,7 @@
 }
 
 .contact-container textarea {
-  width: 100%;
+  width: 95%;
   resize: none;
   padding: 12px 16px;
   font-size: 16px;
@@ -36,18 +36,38 @@
   box-shadow: 0 0 5px rgba(0, 115, 230, 0.3);
 }
 
-.contact-container a {
-  display: inline-block;
-  padding: 10px 20px;
+.contact-button{
+  display: block;
+margin: 5px auto;
+  width: 50%;
+  padding: 12px;
   background-color: #0073e6;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 500;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #005bb5;
+  transform: scale(1.05);
 }
 
 .contact-container a:hover {
   background-color: #005bb5;
   transform: scale(1.02);
+}
+
+.success-msg {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.error-msg {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
 }
