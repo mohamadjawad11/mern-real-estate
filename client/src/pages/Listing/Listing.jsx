@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './Listing.css';
 import {useSelector} from 'react-redux';
 import { FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking, FaShare } from 'react-icons/fa';
-import Contact from '../Contact/Contact.jsx';
+import Contact from '../Contact/Contact.jsx'
 
 export default function Listing() {
   const [listing, setListing] = useState(null);

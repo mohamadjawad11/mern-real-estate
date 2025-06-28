@@ -1,44 +1,53 @@
-import React from 'react'
-import { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
-export default function Contact({listing}) {
+import React, { useState, useEffect } from 'react';
+import './Contact.css';
 
-    const [landloard,setLandlord] = useState(null);
-    const [message, setMessage] = useState('');
+export default function Contact({ listing }) {
+  const [landlord, setLandlord] = useState(null);
 
-    const onChange = (e) => {
-        setMessage(e.target.value);
+  const [message, setMessage] = useState('');
+
+  const onChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+ useEffect(() => {
+    const fetchLandlord = async () => {
+      try {
+        const res = await fetch(`/api/contact/${listing.userRef}`);
+        const data = await res.json();
+        setLandlord(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
-
-    useEffect(() => {
-        const fetchLandlord = async () => {
-            try {
-                const res = await fetch(`/api/contact/${listing.userRef}`);
-                const data = await res.json();
-                if (data.success) {
-                    setLandlord(data.data);
-                } else {
-                    console.error('Failed to fetch landlord:', data.message);
-                }
-            } catch (error) {
-                console.error('Error fetching landlord:', error);
-            }
-        };
-        fetchLandlord();
-    },[listing.userRef]);
+    fetchLandlord();
+  }, [listing.userRef]);
 
   return (
     <>
-        {landloard &&(
-            <div>
-                <p>Contact <span>{landloard.username}</span>
-                for <span>{listing.name.toLowerCase()}</span></p>
-                <textarea placeholder='Enter your Message here' rows={2} value={message} onChange={onChange}></textarea>
-                <Link to={`mailto:${landloard.email}?subject=Regarding your listing: ${listing.name}&body=${message}`} >
-                    Send Message
-                </Link>
-            </div>
-        )}
+
+      {landlord && (
+        
+        <div className="contact-container">
+        
+          <p>
+            Contact <span>{landlord.username}</span> for{' '}
+            <span>{listing.name.toLowerCase()}</span>
+          </p>
+          <textarea
+            placeholder="Enter your Message here"
+            rows={2}
+            value={message}
+            onChange={onChange}
+          ></textarea>
+          <a
+            href={`mailto:${landlord.email}?subject=Regarding your listing: ${listing.name}&body=${encodeURIComponent(message)}`}
+          >
+            Send Message
+          </a>
+        </div>
+        
+      )}
     </>
-  )
+  );
 }

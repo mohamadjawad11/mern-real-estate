@@ -12,6 +12,7 @@ import  getListing  from './routes/listing.route.js'
 import getUser from './routes/contact.route.js'
 
 
+
 import cookieParser from 'cookie-parser';
 dotenv.config();
 
