@@ -98,3 +98,20 @@
   text-decoration: underline;
   color:#0066ff;
 }
+
+.forgot-password-text {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.forgot-password-text a {
+  color: #007bff;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+
+.forgot-password-text a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}

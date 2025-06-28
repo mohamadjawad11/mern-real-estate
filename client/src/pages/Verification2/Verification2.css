@@ -1,0 +1,82 @@
+/* Verification2.css */
+
+.verification-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 89vh;
+  background-color: #f4f4f4;
+}
+
+.verification-card {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+}
+
+.verification-card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.verification-card p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.verification-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.verification-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.verification-button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: #d9534f;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #28a745;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.verify-button{
+     width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.verify-button:hover {
+  background-color: #0056b3;
+}

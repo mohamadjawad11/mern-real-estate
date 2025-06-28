@@ -82,6 +82,9 @@ const { loading, error } = useSelector((state) => state.user);
                 onChange={handleChange}
               />
             </div>
+            <p className="forgot-password-text">
+  <Link to="/forgot-password">Forgot your password?</Link>
+</p>
             <button className="signin-button" type="submit" disabled={loading}>
           {loading ? "Signing In..." : "Sign In"}
           </button>

@@ -1,6 +1,6 @@
 import express from 'express';
 //I should import the controller function for signup
-import { signup,signin,google,signOut,requestVerification } from '../controllers/auth.controller.js';
+import { signup,signin,google,signOut,requestVerification,requestResetCode,verifyResetCode,resetPassword } from '../controllers/auth.controller.js';
 import { verifyAndRegister } from '../controllers/auth.controller.js';
 
 
@@ -14,6 +14,10 @@ router.post("/google",google);
 router.get("/signout",signOut);
 router.post('/request-verification', requestVerification);
 router.post('/verify-and-register', verifyAndRegister);
+router.post('/send-reset-code', requestResetCode);
+router.post('/verify-reset-code', verifyResetCode);
+router.post('/reset-password', resetPassword);
+
 
 
 

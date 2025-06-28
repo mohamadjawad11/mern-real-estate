@@ -10,6 +10,10 @@ import CreateListing from './pages/CreateListing/CreateListing.jsx';
 import MyListings from './pages/MyListings/MyListings.jsx';
 import UpdateListing from './pages/UpdateListing/UpdateListing.jsx';
 import Listing from './pages/Listing/Listing.jsx';
+import VerifyEmail from './pages/VerifyEmail/VerifyEmail.jsx';
+import Verification2 from "./pages/Verification2/Verification2.jsx";
+import UpdatePassword from "./pages/UpdatePassword/UpdatePassword.jsx";
+
 //fxqc uzcz jfgv nthu
 
 export default function App() {
@@ -20,6 +24,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+         <Route path="/verify-email" element={<VerifyEmail />} />
+         <Route path="/forgot-password" element={<Verification2 />} />
+        <Route path="/reset-password" element={<UpdatePassword />} />
         <Route path="/about" element={<About />} />
         <Route path='/listing/:listingId' element={<Listing />} />
         <Route  element={<PrivateRoute />}>

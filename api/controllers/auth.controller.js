@@ -225,3 +225,91 @@ export const verifyCode = async (req, res) => {
   deleteVerificationCode(email); // ✅ One-time use
   return res.status(200).json({ message: "Email verified successfully." });
 };
+
+
+export const requestResetCode = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: "Email is required" });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    saveVerificationCode(email, code, {}); // No userData needed here
+
+    await sendVerificationEmail(email, code);
+
+    return res.status(200).json({ success: true, message: "Reset code sent to email" });
+  } catch (error) {
+    console.error("Reset code error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const verifyResetCode = async (req, res) => {
+  try {
+    const { email, code } = req.body;
+
+    if (!email || !code) {
+      return res.status(400).json({ success: false, message: "Email and code are required" });
+    }
+
+    const stored = getVerificationData(email);
+
+    if (!stored) {
+      return res.status(404).json({ success: false, message: "No reset request found for this email." });
+    }
+
+    if (Date.now() > stored.expiresAt) {
+      deleteVerificationCode(email);
+      return res.status(400).json({ success: false, message: "Code has expired." });
+    }
+
+    if (stored.code !== code) {
+      return res.status(400).json({ success: false, message: "Invalid verification code." });
+    }
+
+    return res.status(200).json({ success: true, message: "Code verified. Proceed to reset password." });
+
+  } catch (err) {
+    console.error("Reset code verification error:", err);
+    return res.status(500).json({ success: false, message: "Server error." });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword, confirmNewPassword } = req.body;
+
+    if (!email || !newPassword || !confirmNewPassword) {
+      return res.status(400).json({ success: false, message: "All fields are required." });
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).json({ success: false, message: "Passwords do not match." });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
+    const hashedPassword = bcryptjs.hashSync(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    return res.status(200).json({ success: true, message: "Password reset successfully." });
+
+  } catch (err) {
+    console.error("Password reset error:", err);
+    return res.status(500).json({ success: false, message: "Server error." });
+  }
+};
