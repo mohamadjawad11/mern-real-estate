@@ -1,14 +1,34 @@
 import React from 'react';
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 
 export default function Header() {
   const {currentUser} = useSelector(state => state.user);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const navigate = useNavigate();
   const fallbackAvatar = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+    
+  }
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const term = urlParams.get('searchTerm');
+    if (term) {
+      setSearchTerm(term);
+    }
+  }, [location.search]);
 
   return (
     <header className="header">
@@ -20,11 +40,12 @@ export default function Header() {
           </h1>
         </Link>
 
-        <form className="search-form">
+        <form onSubmit={handleSubmit} className="search-form">
           <input
             type="text"
             placeholder="Search properties..."
             className="search-input"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button type="submit" className="search-button">
             <FaSearch />
