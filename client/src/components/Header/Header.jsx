@@ -28,7 +28,7 @@ export default function Header() {
     if (term) {
       setSearchTerm(term);
     }
-  }, [location.search]);
+  }, [window.location.search]);
 
   return (
     <header className="header">
@@ -40,21 +40,27 @@ export default function Header() {
           </h1>
         </Link>
 
-        <form onSubmit={handleSubmit} className="search-form">
-          <input
-            type="text"
-            placeholder="Search properties..."
-            className="search-input"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" className="search-button">
-            <FaSearch />
-          </button>
-        </form>
+     
+      <form onSubmit={handleSubmit} className="search-form">
+  <input
+    type="text"
+    placeholder="Search properties..."
+    className="search-input"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+  <button type="submit" className="search-button">
+    <FaSearch />
+  </button>
+</form>
+
 
           <ul className="nav-list">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/my-listings">Your Listings</Link></li>
+          <li><Link to="/search">Find Listing</Link></li>
+          <li><Link to="/create-listing">Create Listing</Link></li>
           <li>
           <Link to="/profile">
       {currentUser && currentUser._id ? (

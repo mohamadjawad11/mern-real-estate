@@ -59,54 +59,70 @@ export default function MyListings() {
   }
 
   return (
-    <div className="my-listings-container">
-      <h1 className="my-listings-title">Your Listings</h1>
+    <div className="my-listings-container3">
+      <h1 className="my-listings-title3">Your Listings</h1>
 
       {error && (
-        <p className="error-msg">Something went wrong loading listings.</p>
+        <p className="error-msg3">Something went wrong loading listings.</p>
       )}
 
       {!error && userListings.length === 0 && (
-        <p className="no-listings-msg">You have no listings yet.</p>
+        <p className="no-listings-msg3">You have no listings yet.</p>
       )}
 
-      <div className="listings-grid">
+      <div className="listings-grid3">
         {userListings.map((listing) => (
-        <div key={listing._id} className="listing-card">
+        <div key={listing._id} className="listing-card3">
           <Link to={`/listing/${listing._id}`}>
-          <img src={listing.imageUrls[0]} alt={listing.name} className="listing-img" />
+          <img src={listing.imageUrls[0]} alt={listing.name} className="listing-img3" />
         </Link>
-<div className="listing-details">
-  <h2 className="listing-name">{listing.name}</h2>
-  <p className="listing-location">
+<div className="listing-details3">
+  <h2 className="listing-name3">{listing.name}</h2>
+  <p className="listing-location3">
     <MdLocationOn style={{ verticalAlign: 'middle', marginRight: '5px', color: '#555' }} />
     {listing.address}
   </p>
 
   {/* Truncated Description */}
-  <p className="listing-description">
+  <p className="listing-description2">
     {listing.description.length > 100
-      ? listing.description.slice(0, 100) + '...'
+      ? listing.description.slice(0, 90) + '...'
       : listing.description}
   </p>
 
-  <p className="listing-price">
-    ${listing.offer ? listing.discountedPrice : listing.regularPrice}
-    {listing.type === 'rent' && ' / month'}
-    <span className={`type-badge ${listing.type === 'rent' ? 'rent' : 'sell'}`}>
+  <p className="listing-price3">
+  {listing.offer ? (
+    <>
+      <span style={{ textDecoration: 'line-through', color: 'gray', marginRight: '8px' }}>
+        ${Number(listing.regularPrice).toLocaleString()}
+      </span>
+      <span style={{ color: 'green', fontWeight: 'bold', marginRight: '8px' }}>
+        ${Number(listing.discountedPrice).toLocaleString()}
+      </span>
+    </>
+  ) : (
+    <span style={{ fontWeight: 'bold', marginRight: '8px' }}>
+      ${Number(listing.regularPrice).toLocaleString()}
+    </span>
+  )}
+
+  {listing.type === 'rent' && ' / month'}
+
+  <span className={`type-badge3 ${listing.type === 'rent' ? 'rent' : 'sell'}`}>
     {listing.type === 'rent' ? 'Rent' : 'Sell'}
   </span>
-  </p>
+</p>
 
-  <div className="listing-specs">
+
+  <div className="listing-specs3">
     <span><FaBed /> {listing.bedrooms} Beds</span>
     <span><FaBath /> {listing.bathrooms} Baths</span>
   </div>
 
-  <div className="listing-actions">
-    <Link to={`/update-listing/${listing._id}`} className="edit-btn">Edit</Link>
-    <Link to={`/listing/${listing._id}`} className="view-btn">View</Link>
-    <button onClick={()=>handleListingDelete(listing._id)} className="delete-btn">Delete</button>
+  <div className="listing-actions3">
+    <Link to={`/update-listing/${listing._id}`} className="edit-btn3">Edit</Link>
+    <Link to={`/listing/${listing._id}`} className="view-btn3">View</Link>
+    <button onClick={()=>handleListingDelete(listing._id)} className="delete-btn3">Delete</button>
     
   </div>
 </div>

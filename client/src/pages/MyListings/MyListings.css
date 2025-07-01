@@ -1,22 +1,22 @@
-.my-listings-container {
+.my-listings-container3 {
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
 }
 
-.my-listings-title {
+.my-listings-title3 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 2rem;
 }
 
-.listings-grid {
+.listings-grid3 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
 }
 
-.listing-card {
+.listing-card3 {
   background: #fdf9f9;
   border-radius: 13px;
   overflow: hidden;
@@ -27,48 +27,48 @@
 
 }
 
-.listing-card:hover {
+.listing-card3:hover {
   transform: scale(1.01);
 }
 
-.listing-img {
+.listing-img3 {
   width: 100%;
   height: 220px;
   object-fit: cover;
 }
 
-.listing-details {
+.listing-details3 {
   padding: 0.7rem;
 }
 
-.listing-name {
+.listing-name3 {
   font-size: 1.25rem;
   font-weight: bold;
   margin: 0;
   margin-bottom: 5px;
 }
 
-.listing-location {
+.listing-location3 {
   font-size: 0.9rem;
   color: #777;
   margin: 4px 0;
 }
 
-.listing-price {
+.listing-price3 {
   font-size: 1.1rem;
   color: green;
   margin-bottom: 0.5rem;
 }
 
-.listing-actions {
+.listing-actions3 {
   display: flex;
   justify-content: space-between;
   margin-top: 1.7rem;
   margin-bottom: 7px;
 }
 
-.edit-btn,
-.delete-btn {
+.edit-btn3,
+.delete-btn3 {
   padding: 0.4rem 2rem;
   border: none;
   border-radius: 10px;
@@ -78,27 +78,27 @@
   cursor: pointer;
 }
 
-.edit-btn {
+.edit-btn3 {
   background: #007bff;
   color: white;
 }
 
-.edit-btn:hover {
+.edit-btn3:hover {
   background: #0056b3;
   transition: 0.3s ease;
 }
 
-.delete-btn {
+.delete-btn3 {
   background: #dc3545;
   color: white;
 }
 
-.delete-btn:hover {
+.delete-btn3:hover {
   background: #c82333;
   transition: 0.3s ease;
 }
 
-.listing-specs{
+.listing-specs3{
   font-size: 1rem;
   color: #555;
   margin-top: 1rem;
@@ -108,11 +108,11 @@
   margin-left: 3px;
 }
 
-.listing-specs span {
+.listing-specs3 span {
   margin-right: 20px;
 }
 
-.listing-description {
+.listing-description3 {
   font-size: 0.95rem;
   color: #555;
   margin: 0.5rem 0;
@@ -120,7 +120,7 @@
 }
 
 
-.view-btn {
+.view-btn3 {
   padding: 6px 36px;
   background-color: #09993e; /* blue */
   color: white;
@@ -133,11 +133,11 @@
   cursor: pointer;
 }
 
-.view-btn:hover {
+.view-btn3:hover {
   background-color: #047f3f; /* darker blue on hover */
 }
 
-.type-badge {
+.type-badge3 {
   display: inline-block;
   padding: 3px 10px;
   margin-left: 10px;
@@ -150,11 +150,11 @@
   user-select: none;
 }
 
-.type-badge.sell {
+.type-badge.sell3 {
   background-color: #3498db; /* blue for sell */
 }
 
-.type-badge.rent {
+.type-badge.rent3 {
   background-color: #2ecc71; /* green for rent */
 }
 

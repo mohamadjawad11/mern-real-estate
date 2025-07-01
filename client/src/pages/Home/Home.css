@@ -1,0 +1,269 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1680px; /* or 1280px depending on your design */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.hero-container {
+  background-color: #ebf0f5;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center vertically */
+  align-items: flex-start; /* align to the left */
+  padding: 2px 140px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #334155; /* slate-700 */
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.highlight {
+  color: #334155; /* consistent dark tone */
+}
+
+.hero-description {
+  font-size: 1rem;
+  color: #94a3b8; /* slate-400 */
+  margin-bottom: 12px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.hero-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #2b60f1; /* blue-700 */
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-link:hover {
+  background-color: #2e4aa7; /* darker blue */
+}
+
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 50px;
+  width: 100%;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 700px;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content:right;
+  
+}
+
+.hero-image img {
+    cursor: pointer;
+  width: 530px;
+  border-radius: 15px;
+  object-fit: cover;
+
+}
+
+.carousel-wrapper {
+  position: relative;
+  max-width: 1280px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.carousel-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.testimonials{
+    margin:auto;
+    padding: 0 60px;
+    position: relative;
+
+}
+
+.next-btn, .back-btn{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform:translateY(-50%);
+    padding:13px;
+    width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #212ea0;
+    margin: 20px;
+   
+    
+}
+
+.next-btn:hover, .back-btn:hover {
+    background-color: #007bff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.back-btn{
+    left: 0;
+    right: auto;
+}
+
+
+.slider{
+    overflow: hidden; 
+
+}
+
+.slider ul{
+    display: flex;
+    width: 200%;
+    overflow-x: hidden;
+    transition: 0.5s;
+
+}
+
+.slider ul li{
+    list-style: none;
+    width: 50%;
+    padding: 20px;
+
+}
+
+.slide{
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    padding: 40px;
+    border-radius: 10px;
+    color: #676767;
+    line-height: 1.4;
+    width: 80%;
+}
+
+.slide img{
+    width: 65px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 4px solid #212ea0;
+}
+
+.user-info{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.user-info h3{
+    color: #212ea0;
+}
+
+
+.testimonials-header {
+  text-align: center;
+
+  padding: 0.5rem;
+}
+
+.testimonials-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.testimonials-header h1:hover {
+  color: #007bff;
+  
+}
+
+.testimonials-header h1:hover::after {
+  width: 50%;
+}
+/* Optional underline effect */
+.testimonials-header h1::after {
+  content: '';
+  width: 50%;
+  height: 4px;
+  background-color: #007bff; /* You can change this color */
+  position: absolute;
+  left: 25%;
+  bottom: 0;
+  border-radius: 2px;
+}
+
+.recent-listings {
+  max-width: 1440px;
+  margin: 40px auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.listing-section {
+  margin-bottom: 20px;
+}
+
+.listing-header {
+  margin-bottom: 12px;
+}
+
+.listing-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #475569; /* slate-600 */
+  margin-bottom: 6px;
+}
+
+.listing-link {
+  font-size: 18px;
+  color: #09278a; /* blue-800 */
+  text-decoration: none;
+}
+
+.listing-link:hover {
+  text-decoration: underline;
+  color: rgb(6, 177, 192);
+  transition: 0.3s;
+}
+
+.listing-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

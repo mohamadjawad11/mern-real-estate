@@ -181,7 +181,7 @@ export default function CreateListing() {
       <h2>Create a Listing</h2>
       <div className="form-layout">
         <div className="form-left">
-          <input type="text" id="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+          <input type="text" id="name" placeholder="Title" value={formData.name} onChange={handleChange} required />
           <textarea id="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
           <input type="text" id="address" placeholder="Address" value={formData.address} onChange={handleChange} required />
 

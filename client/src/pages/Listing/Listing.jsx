@@ -43,42 +43,57 @@ export default function Listing() {
   };
 
   return (
-    <main className="listing-container">
-      {loading && <p className="loading">Loading...</p>}
-      {error && <p className="error">{error}</p>}
+    <main className="listing-container4">
+      {loading && <p className="loading4">Loading...</p>}
+      {error && <p className="error4">{error}</p>}
 
       {listing && (
-        <div className="listing-content">
-          <div className="image-slider">
+        <div className="listing-content4">
+          <div className="image-slider4">
             {listing.imageUrls.map((url, idx) => (
-              <img key={idx} src={url} alt={`Slide ${idx}`} className="slider-image" />
+              <img key={idx} src={url} alt={`Slide ${idx}`} className="slider-image4" />
             ))}
-            <div className="share-button" onClick={handleShare}>
+            <div className="share-button4" onClick={handleShare}>
               <FaShare />
             </div>
-            {copied && <div className="copied-msg">Link copied!</div>}
+            {copied && <div className="copied-msg4">Link copied!</div>}
           </div>
 
-          <div className="listing-info">
-            <h1>{listing.name} - ${Number(listing.offer ? listing.discountPrice : listing.regularPrice).toLocaleString()}</h1>
-            <p className="address">
-              <FaMapMarkerAlt className="location-icon" /> {listing.address}
+          <div className="listing-info4">
+            <h1>
+  {listing.name} - 
+  {listing.offer ? (
+    <>
+      <span style={{ textDecoration: 'line-through', color: 'gray', marginRight: '10px' }}>
+        ${Number(listing.regularPrice).toLocaleString()}
+      </span>
+      <span style={{ color: 'green', fontWeight: 'bold' }}>
+        ${Number(listing.discountedPrice).toLocaleString()}
+      </span>
+    </>
+  ) : (
+    <span>${Number(listing.regularPrice).toLocaleString()}</span>
+  )}
+</h1>
+
+            <p className="address4">
+              <FaMapMarkerAlt className="location-icon4" /> {listing.address}
             </p>
-            <div className="tags">
-              <span className={listing.type === 'rent' ? 'tag rent' : 'tag sale'}>
+            <div className="tags4">
+              <span className={listing.type === 'rent4' ? 'tag4 rent4' : 'tag4 sale4'}>
                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
               </span>
               {listing.offer && (
-                <span className="tag discount">
-                  ${+listing.regularPrice - +listing.discountPrice} OFF
+                <span className="tag4 discount4">
+                  ${+listing.regularPrice - +listing.discountedPrice} OFF
                 </span>
               )}
             </div>
-            <p className="description">
+            <p className="description4">
               <strong>Description -</strong> {listing.description}
             </p>
 
-            <ul className="features">
+            <ul className="features4">
               <li><FaBed /> {listing.bedrooms} {listing.bedrooms > 1 ? 'Beds' : 'Bed'}</li>
               <li><FaBath /> {listing.bathrooms} {listing.bathrooms > 1 ? 'Baths' : 'Bath'}</li>
               <li><FaParking /> {listing.parking ? 'Parking spot' : 'No Parking'}</li>
@@ -86,7 +101,7 @@ export default function Listing() {
             </ul>
             {currentUser && listing.userRef !==currentUser._id && !contact && (
               <button 
-              className='contact-agent'
+              className='contact-agent4'
               onClick={()=>setContact(true)}>
               
               Contact Landlord

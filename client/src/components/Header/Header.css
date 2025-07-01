@@ -15,11 +15,13 @@ body {
   z-index: 1000;
 }
 
+
 /* CONTAINER */
 .header-container {
-  max-width: 1200px;
+  max-width: 90%;
+  padding: 10px 1.4rem;
   margin: 0 auto;
-  padding: 0 2rem;
+ 
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,6 +60,7 @@ body {
   border-radius: 50px;
   overflow: hidden;
   border: 1px solid #dcdfe3;
+  margin-left: 60px;
 }
 
 .search-input {
@@ -111,8 +114,11 @@ body {
   align-items: center;
 }
 
+
+
+
 .signin-text {
-  font-weight: 600;
+  font-weight: 900;
   font-size: 1rem;
   color: #2d3436;
   transition: color 0.3s ease;

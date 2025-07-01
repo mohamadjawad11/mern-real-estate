@@ -1,0 +1,128 @@
+.about-section5 {
+  background-color: #f8f9fb;
+  padding: 60px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.contact-container5 {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.contact-left5 {
+  flex: 1;
+  min-width: 280px;
+}
+
+.contact-left5 h2 {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 10px;
+  border-bottom: 3px solid #007bff;
+  display: inline-block;
+}
+
+.subtext5 {
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.contact-info5 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-item5 {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon5 {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.info-item5 h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #111;
+}
+
+.info-item5 p {
+  margin: 0;
+  color: #555;
+}
+
+.social-icons5 {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.social-icons5 svg {
+  font-size: 1.2rem;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.social-icons5 svg:hover {
+  background: #005ec4;
+}
+
+.contact-right5 {
+  flex: 1;
+  min-width: 280px;
+}
+
+.my-form5 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row5 {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-row5 input {
+  flex: 1;
+  min-width: 120px;
+}
+
+
+.my-input,
+.my-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.btn5 {
+  width: fit-content;
+  background: #007bff;
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn5:hover {
+  background: #005ec4;
+}

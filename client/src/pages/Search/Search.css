@@ -1,0 +1,131 @@
+/* Layout containers */
+.search-container2 {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 2rem;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .search-container2 {
+    flex-direction: row;
+  }
+}
+
+/* Sidebar styling */
+.search-sidebar2 {
+  border-bottom: 2px solid #e2e8f0;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .search-sidebar2 {
+    border-right: 2px solid #e2e8f0;
+    border-bottom: none;
+    min-height: 100vh;
+    width: 300px;
+  }
+}
+
+/* Form styling */
+.search-form2 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: #334155;
+}
+
+.form-group2 label {
+  font-weight: 600;
+}
+
+.form-group2 input[type="text"],
+.form-group2 select {
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #f9fafb;
+  transition: border-color 0.2s ease;
+}
+
+.form-group2 input[type="text"]:focus,
+.form-group2 select:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.form-group2 input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #2563eb;
+}
+
+/* Submit button */
+.search-button2 {
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+
+.search-button2:hover {
+  opacity: 0.95;
+  cursor: pointer;
+}
+
+/* Results section */
+.search-results2 {
+  flex: 1;
+  padding-top: 1rem;
+}
+
+.search-results2 h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #334155;
+  padding: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.results-grid2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.results-grid2 p {
+  font-size: 18px;
+  color: #334155;
+}
+
+/* Show more button */
+.show-more2 {
+  color: #15803d;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: text-decoration 0.2s ease;
+}
+
+.show-more2:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
