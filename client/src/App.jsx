@@ -15,14 +15,17 @@ import Verification2 from "./pages/Verification2/Verification2.jsx";
 import UpdatePassword from "./pages/UpdatePassword/UpdatePassword.jsx";
 import Search from './pages/Search/Search.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import ScrollToTop from './pages/ScrollToTop.jsx';
+import AutoLogout from './pages/AutoLogout.jsx';
 
 
-//fxqc uzcz jfgv nthu
 
 export default function App() {
   return (
     <BrowserRouter>
+    <AutoLogout>
     <Header/>
+    <ScrollToTop /> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
@@ -30,10 +33,12 @@ export default function App() {
          <Route path="/verify-email" element={<VerifyEmail />} />
          <Route path="/forgot-password" element={<Verification2 />} />
         <Route path="/reset-password" element={<UpdatePassword />} />
-        <Route path="/about" element={<About />} />
+       
         <Route path='/search' element={<Search />} />
-        <Route path='/listing/:listingId' element={<Listing />} />
+        
         <Route  element={<PrivateRoute />}>
+         <Route path="/about" element={<About />} />
+         <Route path='/listing/:listingId' element={<Listing />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/my-listings" element={<MyListings />} />
@@ -42,6 +47,8 @@ export default function App() {
         
       </Routes>
       <Footer/>
+      </AutoLogout>
+    
     </BrowserRouter>
   );
 }

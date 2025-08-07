@@ -1,4 +1,3 @@
-/* REMOVE DEFAULT BODY MARGIN */
 body {
   margin: 0;
   padding: 0;
@@ -34,13 +33,14 @@ body {
   font-size: 1.8rem;
   font-weight: 800;
   display: flex;
-  gap: 0.3rem;
+  
   margin: 0;
   
 }
 
 .logo-part1 {
   color: #0077ff;
+  text-decoration:#0077ff underline ;
   
   
 }
@@ -173,4 +173,45 @@ body {
 .profile-avatar:hover {
   transform: scale(1.1);
   border-color: #007bff;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* Toggle navigation menu for small devices */
+@media (max-width: 767.98px) {
+  .menu-icon {
+    display: block;
+    color: #2d3436;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+  }
+
+  .nav-list.open {
+    display: flex;
+  }
+
+  .nav-list li {
+    margin-bottom: 0.8rem;
+  }
+
+  .nav-list li:last-child {
+    margin-bottom: 0;
+  }
 }

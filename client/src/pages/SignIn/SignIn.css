@@ -1,9 +1,17 @@
+/* Instead of global, scope it to SignIn */
+.signin-wrapper *,
+.signin-wrapper *::before,
+.signin-wrapper *::after {
+  box-sizing: border-box;
+}
+
 .signin-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 85vh;
   background-color: #f0f0f0;
+  padding: 20px; /* Added padding for small screens */
 }
 
 .signin-card {
@@ -14,6 +22,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
+  max-width: 100%;
+  flex-wrap: nowrap;
 }
 
 .signin-left {
@@ -32,6 +42,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden; /* Prevent content overflow */
 }
 
 .signin-right h2 {
@@ -96,7 +107,7 @@
 
 .signup-link a:hover {
   text-decoration: underline;
-  color:#0066ff;
+  color: #0066ff;
 }
 
 .forgot-password-text {
@@ -114,4 +125,66 @@
 .forgot-password-text a:hover {
   text-decoration: underline;
   color: #0056b3;
+}
+
+/* Ensure buttons and OAuth fill container width and don’t overflow */
+button,
+input,
+.OAuth {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive Styles */
+@media (max-width: 950px) {
+  .signin-card {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .signin-left,
+  .signin-right {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .signin-left {
+    height: 250px; /* Fixed height for image section on smaller screens */
+  }
+
+  .signin-right {
+    padding: 40px 20px;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-right {
+    padding: 30px 15px;
+  }
+
+  .signin-right h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .signin-form .input-group {
+    padding: 8px;
+  }
+
+  .signin-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .forgot-password-text {
+    font-size: 13px;
+  }
+
+  .signup-link {
+    font-size: 14px;
+  }
 }

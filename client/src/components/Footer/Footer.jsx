@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
-import { FaFacebookF, FaTwitter, FaWhatsapp, FaPinterestP, FaEnvelope } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaWhatsapp, FaPinterestP, FaEnvelope,FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
         {/* Left Section - Logo & Description */}
         <div className="footer-box">
           <h2 className="footer-logo">
-            ✂<span>tyle</span>
+            Real<span>Estate</span>
           </h2>
           <p>
             Subscribe to our channel to stay updated with the latest tutorials and web development tricks.
@@ -20,21 +21,21 @@ export default function Footer() {
         <div className="footer-box">
           <h3>Office</h3>
           <p>ITPL Road</p>
-          <p>Whitefield, Beirut, Lebanon</p>
+          <p>Ghobeiry, Beirut, Lebanon</p>
           <p>PIN 560066</p>
-          <p>Email: style.support@email.com</p>
-          <p>Phone: +961 12345678</p>
+          <p>Email: hamdanjawad789@gmail.com</p>
+          <p>Phone: +961 78 958 764</p>
         </div>
 
         {/* Links */}
         <div className="footer-box">
           <h3>Links</h3>
           <ul>
-            <li>Home</li>
-            <li>Services</li>
-            <li>About Us</li>
-            <li>Features</li>
-            <li>Contacts</li>
+        <Link to={'/'}><li>Home</li></Link>    
+            <Link to={'/about'}><li>About us</li></Link>
+            <Link to={'/about'}><li>Contact Us</li></Link>
+            <Link to={'search'}><li>Properties</li></Link>
+            <Link to={'/my-listings'}><li>Your Listings</li></Link>
           </ul>
         </div>
 
@@ -44,7 +45,7 @@ export default function Footer() {
           <form className="newsletter-form">
             <FaEnvelope className="email-icon" />
             <input type="email" placeholder="Enter your email" required />
-            <button type="submit">→</button>
+            <button type="submit"><FaArrowRight/></button>
           </form>
           <div className="footer-socials">
             <FaFacebookF />
@@ -54,7 +55,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <p className="footer-bottom">© 2025 Style | All Rights Reserved</p>
+      <p className="footer-bottom">© Mohammad Jawad Hamdan | All Rights Reserved</p>
     </footer>
   );
 }

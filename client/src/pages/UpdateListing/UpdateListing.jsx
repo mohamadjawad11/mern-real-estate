@@ -167,8 +167,9 @@ export default function UpdateListing() {
         setSuccessMessage("✅ Listing updated successfully!");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate(`/listing/${data._id}`);
-        }, 3000);
+          navigate('/my-listings');
+          
+        }, 2000);
       }
     } catch (err) {
       setError(err.message);

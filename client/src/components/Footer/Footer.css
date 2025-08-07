@@ -14,78 +14,110 @@
   gap: 30px;
 }
 
-.footer-box {
-  flex: 1;
-  min-width: 220px;
-}
 
 .footer-logo {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 800;
   color: #007bff;
+  text-decoration: underline;
+  
 }
+
+
 
 .footer-logo span {
   color: #333;
+  text-decoration: #333 underline;
+  gap: 2px;
+}
+
+.footer-box {
+  flex: 1;
+  min-width: 200px;
+  margin: 20px;
 }
 
 .footer-box h3 {
+  font-size: 20px;
   margin-bottom: 15px;
-  color: #222;
-  border-bottom: 3px solid #007bff;
+  color: #333;
+  border-bottom: 2px solid #00aaff;
   display: inline-block;
-  padding-bottom: 4px;
-}
-
-.footer-box p,
-.footer-box li {
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-  color: #555;
+  padding-bottom: 5px;
 }
 
 .footer-box ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
+
+.footer-box ul li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-box ul li:hover {
+  color: #00aaff;
+  text-decoration: underline;
+}
+
+/* Optional: Link tag reset if you're using react-router-dom <Link> */
+.footer-box ul a {
+  text-decoration: none;
+}
+
 
 .newsletter-form {
   display: flex;
   align-items: center;
-  background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 25px;
-  overflow: hidden;
-  margin-top: 10px;
+  border-radius: 30px;
+  padding: 5px 10px;
+  background-color: #fff;
+  max-width: 350px;
+  margin-top: 20px;
 }
 
-.newsletter-form input {
+.newsletter-form .email-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #028ed4;
+}
+
+.newsletter-form input[type="email"] {
   border: none;
-  padding: 10px;
-  flex: 1;
   outline: none;
-  font-size: 0.95rem;
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 30px;
+  background: transparent;
 }
 
 .newsletter-form button {
   border: none;
-  background-color: #007bff;
+  background-color: #00aaff;
   color: white;
-  padding: 10px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px;
+  margin-left: 25px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
-  font-size: 1.2rem;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .newsletter-form button:hover {
-  background-color: #005ec4;
+  background-color: #007acc;
 }
 
-.email-icon {
-  color: #999;
-  margin-left: 12px;
-  font-size: 1rem;
-}
+
 
 .footer-socials {
   display: flex;
@@ -114,4 +146,52 @@
   color: #777;
   border-top: 1px solid #ddd;
   padding-top: 20px;
+}
+
+.image-slider4 {
+  width: 100%;
+  position: relative;
+  margin-bottom: -30px; /* 👈 pulls up the next section slightly */
+  z-index: 1;
+}
+
+.swiper4 {
+  width: 100%;
+  height: 500px; /* 👈 increase height if you want it more immersive */
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.slider-image4 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.custom-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+.custom-arrow.left {
+  left: 10px;
+}
+
+.custom-arrow.right {
+  right: 10px;
 }

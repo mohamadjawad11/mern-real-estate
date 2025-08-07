@@ -1,9 +1,17 @@
+/* Scoped box-sizing only inside signup-wrapper */
+.signup-wrapper *,
+.signup-wrapper *::before,
+.signup-wrapper *::after {
+  box-sizing: border-box;
+}
+
 .signup-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90vh;
   background-color: #f0f0f0;
+  padding: 20px; /* added padding for smaller screens */
 }
 
 .signup-card {
@@ -14,6 +22,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
+  max-width: 100%;
+  flex-wrap: nowrap;
 }
 
 .signup-left {
@@ -32,6 +42,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden; /* prevent overflow */
 }
 
 .signup-right h2 {
@@ -49,7 +60,6 @@
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 6px;
- 
 }
 
 .input-group .icon {
@@ -75,11 +85,11 @@
   font-weight: bold;
   cursor: pointer;
   margin-top: 10px;
+  transition: background-color 0.4s;
 }
 
 .signup-button:hover {
   background-color: #004ccc;
-  transition: 0.4s;
 }
 
 .divider {
@@ -107,11 +117,13 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.4s;
 }
+
 .google-button:hover {
   background: #cc0000;
-  transition: 0.4s;
 }
+
 .google-icon {
   margin-right: 8px;
   font-size: 20px;
@@ -128,11 +140,11 @@
   text-decoration: none;
   margin-left: 5px;
   font-weight: 500;
+  transition: color 0.3s, text-decoration 0.3s;
 }
 
 .login-link a:hover {
   text-decoration: underline;
-  transition: 0.3s;
   color: #062e73;
 }
 
@@ -157,4 +169,64 @@
   margin-top: 16px;
   box-shadow: 0 2px 6px rgba(2, 122, 72, 0.15);
   text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 950px) {
+  .signup-card {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .signup-left,
+  .signup-right {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .signup-left {
+    height: 300px; /* fixed height for image on smaller screens */
+  }
+
+  .signup-right {
+    padding: 40px 20px;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-right {
+    padding: 30px 15px;
+  }
+
+  .signup-right h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .signup-form .input-group {
+    padding: 8px;
+  }
+
+  .signup-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .google-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .login-link {
+    font-size: 14px;
+  }
+
+  .error-message,
+  .success-message {
+    font-size: 13px;
+    padding: 10px;
+  }
 }

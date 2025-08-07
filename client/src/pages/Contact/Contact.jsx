@@ -1,31 +1,47 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as emailjs from '@emailjs/browser';
 
 import './Contact.css';
 
 export default function Contact({ listing }) {
   const [landlord, setLandlord] = useState(null);
-
+  const { currentUser } = useSelector((state) => state.user);
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
 const [error, setError] = useState('');
+
+const navigate=useNavigate();
 
   const onChange = (e) => {
     setMessage(e.target.value);
   };
 
  useEffect(() => {
-    const fetchLandlord = async () => {
-      try {
-        const res = await fetch(`/api/contact/${listing.userRef}`);
-        const data = await res.json();
-        setLandlord(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchLandlord();
-  }, [listing.userRef]);
+  if (!currentUser) {
+    navigate('/');
+    return;
+  }
+
+  const fetchLandlord = async () => {
+    try {
+      const res = await fetch(`/api/contact/${listing.userRef}`, {
+        headers: {
+          'Authorization': `Bearer ${currentUser.token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      setLandlord(data);
+    } catch (error) {
+      console.error('Failed to fetch landlord:', error);
+    }
+  };
+
+  fetchLandlord();
+}, [listing.userRef, currentUser, navigate]);
+
 
   const handleSend = async () => {
     if (!message.trim()) return;
