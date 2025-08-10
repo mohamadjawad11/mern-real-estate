@@ -56,10 +56,13 @@ export default function Header() {
 
         <ul className={`nav-list ${menuOpen ? 'open' : ''}`}>
           <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-          <li><Link to="/about" onClick={() => setMenuOpen(false)}>Contact</Link></li>
-          <li><Link to="/my-listings" onClick={() => setMenuOpen(false)}>Your Listings</Link></li>
           <li><Link to="/search" onClick={() => setMenuOpen(false)}>Properties</Link></li>
           <li><Link to="/create-listing" onClick={() => setMenuOpen(false)}>Create Listing</Link></li>
+          <li><Link to="/my-listings" onClick={() => setMenuOpen(false)}>Your Listings</Link></li>
+          <li><Link to="/about" onClick={() => setMenuOpen(false)}>Contact</Link></li>
+          
+          
+          
           <li>
             <Link to="/profile" onClick={() => setMenuOpen(false)}>
               {currentUser && currentUser._id ? (

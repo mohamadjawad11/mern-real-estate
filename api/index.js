@@ -10,6 +10,7 @@ import listingRouter from './routes/listing.route.js';
 import displayRoute from './routes/display.route.js'; 
 import  getListing  from './routes/listing.route.js'
 import getUser from './routes/contact.route.js'
+import path from 'path';
 
 
 
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGO).then(() => {
   console.error('Error connecting to MongoDB:', err);
 });
 
+const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json()); 
@@ -40,10 +42,10 @@ app.use('/api/display', displayRoute);
 app.use('/api/listing', getListing);
 app.use('/api/contact', getUser);
 
-
-
-
-
+app.use(express.static(path.join(__dirname, '/client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

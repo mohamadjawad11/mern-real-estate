@@ -146,17 +146,20 @@
 
 
 .upload-btn {
-  padding: 10px 62px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px; /* smaller padding for compact look */
+  height: 38px; /* matches checkbox + label height */
   font-weight: bold;
   font-size: 14px;
   color: #fff;
   border: 1px solid #26387c;
   background-color: #3b55f6;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
-  min-width: 120px; /* 💡 ensures no jump when text changes */
-  text-align: center;
+  width: 30%;
 }
 
 .upload-btn:disabled {
@@ -164,11 +167,11 @@
   cursor: not-allowed;
 }
 
-
 .upload-btn:hover {
   background-color: transparent;
   color: #1d0d97;
 }
+
 
 .create-button {
   background-color: #239ac2;
@@ -283,3 +286,4 @@
   font-weight: bold;
   margin-top: 10px;
 }
+
