@@ -39,7 +39,6 @@ app.use('/api/auth', authRouter);
 app.use('/api/deleting', deletingRouter);
 app.use('/api/listing',listingRouter);
 app.use('/api/display', displayRoute); 
-app.use('/api/listing', getListing);
 app.use('/api/contact', getUser);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
