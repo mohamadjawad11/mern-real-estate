@@ -1,5 +1,3 @@
-
-
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -8,7 +6,6 @@ import authRouter from './routes/auth.route.js';
 import deletingRouter from './routes/deleting.route.js';
 import listingRouter from './routes/listing.route.js';
 import displayRoute from './routes/display.route.js'; 
-import  getListing  from './routes/listing.route.js'
 import getUser from './routes/contact.route.js'
 import path from 'path';
 
@@ -44,8 +41,9 @@ app.use('/api/contact', getUser);
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
 
+
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
 app.use((err, req, res, next) => {
