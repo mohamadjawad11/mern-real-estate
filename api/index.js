@@ -7,6 +7,7 @@ import deletingRouter from './routes/deleting.route.js';
 import listingRouter from './routes/listing.route.js';
 import displayRoute from './routes/display.route.js'; 
 import getUser from './routes/contact.route.js'
+import path from 'path';
 
 
 
@@ -23,11 +24,13 @@ mongoose.connect(process.env.MONGO).then(() => {
 
 
 const app = express();
+const __dirname = path.resolve();
+
 app.use(express.json()); 
 
 app.use(cookieParser());
 
-app.use('/uploads', express.static('public/uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 
 app.use('/api/user', userRouter);
@@ -37,6 +40,10 @@ app.use('/api/listing',listingRouter);
 app.use('/api/display', displayRoute); 
 app.use('/api/contact', getUser);
 
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -49,6 +56,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -10,14 +10,14 @@ import OAuth from "../../components/OAuth/OAuth";
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const location = useLocation(); // ✅ for message from <Navigate state=... />
+  const location = useLocation(); 
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
   const [success, setSuccess] = useState(null);
   const [redirectMessage, setRedirectMessage] = useState('');
 
-  // ✅ Show message if redirected from private route
+
   useEffect(() => {
     if (location.state?.message) {
       setRedirectMessage(location.state.message);
@@ -66,7 +66,7 @@ export default function SignIn() {
         <div className="signin-right">
           <h2>Sign In</h2>
 
-          {/* ✅ Redirect warning message */}
+         
           {redirectMessage && (
             <div className="redirect-warning" style={{ color: "red", marginBottom: "10px" }}>
               {redirectMessage}
@@ -105,3 +105,42 @@ export default function SignIn() {
     </div>
   );
 }
+
+
+// import React, { useState, useEffect } from 'react';
+
+// function UserList() {
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     // This function runs after the component mounts
+//     const fetchUsers = async () => {
+//       try {
+//         const response = await fetch('https://jsonplaceholder.typicode.com/users');
+//         const data = await response.json();
+//         setUsers(data);
+//       } catch (error) {
+//         console.error('Error fetching users:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchUsers();
+//   }, []); // Empty dependency array: runs only once after the component mounts
+
+//   if (loading) {
+//     return <p>Loading users...</p>;
+//   }
+
+//   return (
+//     <ul>
+//       {users.map((user) => (
+//         <li key={user.id}>{user.name}</li>
+//       ))}
+//     </ul>
+//   );
+// }
+
+// export default UserList;

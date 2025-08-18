@@ -126,7 +126,7 @@ export default function CreateListing() {
       setLoading(true);
       setError(false);
 
-      console.log("Submitting:", formData); // optional debug log
+      console.log("Submitting:", formData); 
 
       const res = await fetch("/api/listing/create", {
         method: "POST",
