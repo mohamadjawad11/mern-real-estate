@@ -32,8 +32,8 @@ export default function Header() {
       <div className="header-container">
         <Link to="/" className="logo">
           <h1>
-            <span className="logo-part1">Real</span>
-            <span className="logo-part2">Estate</span>
+            <span className="logo-part1">Quick</span>
+            <span className="logo-part2">Property</span>
           </h1>
         </Link>
 

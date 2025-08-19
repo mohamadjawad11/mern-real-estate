@@ -31,16 +31,15 @@ body {
 /* LOGO */
 .logo h1 {
   font-size: 1.8rem;
-  font-weight: 800;
+  font-weight: 700;
   display: flex;
-  
   margin: 0;
   
 }
 
 .logo-part1 {
   color: #0077ff;
-  text-decoration:#0077ff underline ;
+  text-decoration:#0077ff underline;
   
   
 }
@@ -213,5 +212,8 @@ body {
 
   .nav-list li:last-child {
     margin-bottom: 0;
+  }
+  .search-form{
+    display: none;
   }
 }
