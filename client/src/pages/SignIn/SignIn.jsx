@@ -18,13 +18,21 @@ export default function SignIn() {
   const [redirectMessage, setRedirectMessage] = useState('');
 
 
-  useEffect(() => {
-    if (location.state?.message) {
-      setRedirectMessage(location.state.message);
-      const timeout = setTimeout(() => setRedirectMessage(''), 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [location.state]);
+useEffect(() => {
+  if (location.state?.message) {
+    setRedirectMessage(location.state.message);
+
+    // Clear the message after 5 seconds
+    const timeout = setTimeout(() => setRedirectMessage(''), 5000);
+
+    // Clear the state so it won't persist
+    window.history.replaceState({}, document.title);
+
+    return () => clearTimeout(timeout);
+  }
+}, [location.state]);
+
+
 
   const handleChange = (e) => {
     setFormData({
